@@ -3,6 +3,8 @@
 # packages
 .turbo
 .eslintrc.json
+tsconfig*.json
+*tsconfig*.tsbuildinfo
 
 # monorepo
 .pnpm-store
