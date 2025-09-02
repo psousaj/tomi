@@ -4,11 +4,12 @@
   "packageManager": "pnpm@9.0.0",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:api": "turbo run dev --filter=@tomi/validation --filter=api",
     "build": "turbo run build",
     "lint": "turbo run lint"
   },
   "devDependencies": {
-    "turbo": "latest",
-    "typescript": "^5.5.0"
+    "@tomi/ts-config": "workspace:*",
+    "turbo": "latest"
   }
 }
