@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "dev:api": "turbo run dev --filter=@tomi/validation --filter=api",
+    "dev:web": "turbo run dev --filter=web",
     "build": "turbo run build",
     "lint": "turbo run lint"
   },
