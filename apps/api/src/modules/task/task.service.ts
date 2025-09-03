@@ -13,6 +13,7 @@ export class TaskService {
   ) { }
 
   create(createTaskDto: CreateTaskDto) {
+    console.log(createTaskDto);
     const task = this.taskRepository.create(createTaskDto);
     return this.taskRepository.save(task);
   }
@@ -20,6 +21,11 @@ export class TaskService {
   findAll() {
     return this.taskRepository.find();
   }
+
+  findAllByUser(userLogin: string) {
+    return this.taskRepository.find({ where: { userLogin } });
+  }
+
 
   findOne(id: number) {
     return this.taskRepository.findOneBy({ id });

@@ -1,7 +1,5 @@
 import axios from "axios"
-import { envSchema } from '@tomi/validation'
-import { TaskType } from "@/types"
-import { config } from 'dotenv'
+import { AppUser, CreateUserPayload, GithubUserRepos, GithubUserResponse, TaskType } from "@/types"
 
 const apiPort = 3003
 const api = axios.create({
@@ -13,12 +11,12 @@ const api = axios.create({
 
 export default api
 
-async function getTasks() {
-    const response = await api.get<TaskType[]>("/task")
+async function getTasks(userLogin: string) {
+    const response = await api.get<TaskType[]>("/task", { params: { user: userLogin } })
     return response.data
 }
 
-async function createTask(data: { title: string; description: string }) {
+async function createTask(data: { title: string; description: string, userLogin: string }) {
     const response = await api.post("/task", data)
     return response.data
 }
@@ -33,4 +31,28 @@ async function deleteTask(id: number) {
     return response.data
 }
 
-export { getTasks, createTask, updateTask, deleteTask }
+async function createUser(data: CreateUserPayload) {
+    const response = await api.post("/user", data)
+    return response.data
+}
+
+async function getUser(id: number) {
+    const response = await api.get<AppUser>(`/user/${id}`)
+    return response.data
+}
+
+// --- APIs externas ---
+async function getGitHubUser(username: string) {
+    const res = await axios.get<GithubUserResponse>(`https://api.github.com/users/${username}`)
+    if (res.status !== 200) throw new Error("Usuário não encontrado no GitHub")
+    return res.data
+}
+
+async function getGitHubUserRepos(username: string) {
+    const res = await axios.get<GithubUserRepos[]>(`https://api.github.com/users/${username}/repos`)
+    if (res.status !== 200) throw new Error("Nenhum repositório encontrado no GitHub")
+    return res.data
+}
+
+
+export { getTasks, createTask, updateTask, deleteTask, createUser, getUser, getGitHubUser, getGitHubUserRepos }

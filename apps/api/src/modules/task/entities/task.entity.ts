@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/modules/user/entities/user.entity";
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Task {
@@ -13,4 +14,11 @@ export class Task {
 
     @Column({ default: false })
     completed: boolean;
+
+    @Column()
+    @JoinColumn({ name: "userLogin" })
+    userLogin: string;
+
+    @OneToMany(() => User, (user) => user.tasks)
+    user: User;
 }

@@ -1,4 +1,6 @@
 export * from './schemas/env'
 export * from './schemas/task'
+export * from './schemas/user'
+export * from './schemas/github'
 
-export * from 'zod'
+export * as zod from 'zod'

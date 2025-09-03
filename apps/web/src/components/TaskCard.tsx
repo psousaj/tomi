@@ -15,15 +15,19 @@ import { TaskTable } from "./TaskTable"
 import { NewTaskDialog } from "./NewTaskDialog"
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getTasks, createTask, deleteTask, updateTask } from "@/lib/api"
-import { TaskType } from "@/types"
+import { getTasks, deleteTask, updateTask } from "@/lib/api"
+import { AppUser, TaskType } from "@/types"
+import { getCookie } from "cookies-next"
+import { getUserClientCookie } from "@/lib/utils"
+
 
 export function TaskCard() {
     const queryClient = useQueryClient()
+    const user = getUserClientCookie()
 
     const { isLoading, error, data } = useQuery({
         queryKey: ['taskData'],
-        queryFn: getTasks,
+        queryFn: async () => await getTasks(user?.login!),
         throwOnError: true
     })
 

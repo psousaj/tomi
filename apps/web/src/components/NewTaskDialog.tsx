@@ -18,16 +18,22 @@ import { Textarea } from "@/components/ui/textarea"
 import { TaskType } from "@/types"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createTask } from "@/lib/api"
+import { getUserClientCookie } from "@/lib/utils"
 
 export function NewTaskDialog({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = React.useState(false)
     const queryClient = useQueryClient()
+    const user = getUserClientCookie()
 
     const mutation = useMutation({
         mutationFn: (data: TaskType) => createTask(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['taskData'] })
             setIsOpen(false)
+        },
+        onError: (e) => {
+            // setIsOpen(false)
+            console.error("Erro ao criar tarefa", e)
         }
     })
 
@@ -37,8 +43,10 @@ export function NewTaskDialog({ children }: { children: React.ReactNode }) {
         const data: TaskType = {
             title: formData.get("title") as string,
             description: formData.get("description") as string,
-            completed: false
+            completed: false,
+            userLogin: user?.login!
         }
+        console.log(data)
         mutation.mutate(data)
     }
 

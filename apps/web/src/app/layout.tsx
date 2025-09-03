@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import "../styles/globals.css";
 import { Providers } from "@/components/providers";
 import Header from "@/components/Header";
+import { cookies } from "next/headers";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -16,21 +17,26 @@ export const metadata: Metadata = {
   description: "Um aplicativo de gerenciamento de tarefas e objetivos",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("fake_jwt")?.value;
+
+  const showHeader = Boolean(token);
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${poppins.variable} grid min-h-screen max-h-screen w-full grid-rows-[auto_1fr_auto] p-2 md:p-4`}
       >
         <Providers>
-          <Header />
+          {showHeader && <Header />}
 
           {/* MAIN (centralizado automaticamente) */}
-          <main className="grid place-items-center overflow-auto">
+          <main className="grid place-items-center overflow-hidden">
             {children}
           </main>
 

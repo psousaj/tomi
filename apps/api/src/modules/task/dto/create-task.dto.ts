@@ -1,3 +1,3 @@
-import { taskSchema, z } from '@tomi/validation'
+import { taskSchema, zod } from '@tomi/validation'
 
-export type CreateTaskDto = z.infer<typeof taskSchema>;
+export type CreateTaskDto = zod.infer<typeof taskSchema>;
