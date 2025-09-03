@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 
 import "../styles/globals.css";
 import { Providers } from "@/components/providers";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -27,7 +27,7 @@ export default function RootLayout({
         className={`${poppins.variable} grid min-h-screen max-h-screen w-full grid-rows-[auto_1fr_auto] p-2 md:p-4`}
       >
         <Providers>
-          <Navbar />
+          <Header />
 
           {/* MAIN (centralizado automaticamente) */}
           <main className="grid place-items-center overflow-auto">
