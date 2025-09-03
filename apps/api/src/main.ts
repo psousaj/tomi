@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalFilters(new TypeOrmExceptionFilter());
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://meu-frontend.com'],
+    origin: ['http://localhost:3000', 'http://meu-frontend.com', 'http://192.168.0.8:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

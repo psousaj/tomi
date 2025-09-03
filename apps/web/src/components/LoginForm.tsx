@@ -54,10 +54,9 @@ export function LoginForm() {
                 saveUserToStorage(user)
                 setFakeTokenCookie(user)
                 router.refresh()
-            } else {
-                setError(`${err?.message}: ${err.response.data?.message}` || "Erro ao criar usuário")
+                return
             }
-
+            setError(`${err?.message}: ${err.response}` || "Erro ao criar usuário")
         }
     }
 

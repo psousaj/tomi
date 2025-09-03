@@ -1,9 +1,10 @@
 import axios from "axios"
 import { AppUser, CreateUserPayload, GithubUserRepos, GithubUserResponse, TaskType } from "@/types"
+import { webEnvSchema } from '@tomi/validation'
 
-const apiPort = 3003
+const parsedEnv = webEnvSchema.parse({ NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL })
 const api = axios.create({
-    baseURL: `http://localhost:${apiPort}/api/v1`,
+    baseURL: parsedEnv.NEXT_PUBLIC_API_URL,
     headers: {
         "Content-Type": "application/json",
     },
@@ -33,11 +34,13 @@ async function deleteTask(id: number) {
 
 async function createUser(data: CreateUserPayload) {
     const response = await api.post("/user", data)
+    console.log("request with base url", api.defaults.baseURL)
     return response.data
 }
 
 async function getUser(id: number) {
     const response = await api.get<AppUser>(`/user/${id}`)
+    console.log("request with base url", api.defaults.baseURL)
     return response.data
 }
 
