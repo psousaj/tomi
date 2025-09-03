@@ -88,7 +88,7 @@ export function TaskTable({ tasks, errorMessage, toggleCompleteTaskFn, updateTas
                                                     }}
                                                     id={`toggle-${task.title}`}
                                                     checked={task.completed}
-                                                    className="z-[100] data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                                                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
                                                 />
                                                 <div
                                                     className="grid gap-1.5 font-normal cursor-pointer text-left w-full"
