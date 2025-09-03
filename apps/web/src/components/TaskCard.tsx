@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -12,35 +14,42 @@ import {
 import { TaskTable } from "./TaskTable"
 import { NewTaskDialog } from "./NewTaskDialog"
 
-// dialog e tabs
-
-const dataTable = [
-    {
-        title: "INV001",
-        description: "Paid",
-        completed: true,
-    },
-    {
-        title: "INV002",
-        description: "Pending",
-        completed: false,
-    },
-    {
-        title: "INV003",
-        description: "Unpaid",
-        completed: false,
-    },
-    {
-        title: "INV004",
-        description: "Paid",
-        completed: true,
-    },
-]
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getTasks, createTask, deleteTask, updateTask } from "@/lib/api"
+import { TaskType } from "@/types"
 
 export function TaskCard() {
+    const queryClient = useQueryClient()
+
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['taskData'],
+        queryFn: getTasks,
+        throwOnError: true
+    })
+
+    const tasks = Array.isArray(data) ? data : []
+
+    const toggleCompleteTaskMutation = useMutation({
+        mutationFn: (task: TaskType) => updateTask(task.id!, task),
+        onSuccess: () => {
+            console.log("Task completed:")
+            queryClient.invalidateQueries({ queryKey: ['taskData'] })
+        }
+    })
+
+    const updateTaskMutation = useMutation({
+        mutationFn: (task: TaskType) => updateTask(task.id!, task),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['taskData'] })
+    })
+
+    const deleteTaskMutation = useMutation({
+        mutationFn: (task: TaskType) => deleteTask(task.id!),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['taskData'] })
+    })
+
     return (
         <Card className="w-full min-w-72 max-w-[500px]">
-            <CardHeader >
+            <CardHeader>
                 <CardTitle className="capitalize">Lista de tarefas</CardTitle>
                 <CardDescription>
                     Gerencie suas tarefas de forma eficiente
@@ -49,19 +58,22 @@ export function TaskCard() {
                     <NewTaskDialog>
                         <Button variant="default">Nova Tarefa</Button>
                     </NewTaskDialog>
-                </CardAction >
-            </CardHeader >
+                </CardAction>
+            </CardHeader>
+
             <CardContent>
-                <TaskTable tasks={dataTable} />
+                {isLoading && <p className="text-center text-sm text-muted-foreground py-4">Carregando tarefas...</p>}
+                {error && <p className="text-center text-sm text-destructive py-4">Erro ao carregar tarefas</p>}
+                {!isLoading && !error && (
+                    <TaskTable
+                        tasks={tasks}
+                        toggleCompleteTaskFn={(task) => toggleCompleteTaskMutation.mutate(task)}
+                        updateTaskFn={(task) => updateTaskMutation.mutate(task)}
+                        deleteTaskFn={(task) => deleteTaskMutation.mutate(task)}
+                    />
+                )}
             </CardContent>
-            {/* <CardFooter className="flex-col gap-2">
-                <Button type="submit" className="w-full">
-                    Login
-                </Button>
-                <Button variant="outline" className="w-full">
-                    Login with Google
-                </Button>
-            </CardFooter> */}
-        </Card >
+        </Card>
     )
 }
+
