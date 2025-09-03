@@ -1,5 +1,4 @@
 import z from "zod";
-import id from "zod/v4/locales/id.js";
 
 const taskSchema = z.object({
     id: z.number().int().positive().optional(),
@@ -8,7 +7,7 @@ const taskSchema = z.object({
     completed: z.boolean().default(false),
 });
 
-const updateTaskSchema = taskSchema.partial().omit({ completed: true });
+const updateTaskSchema = taskSchema.partial();
 
 export {
     taskSchema,

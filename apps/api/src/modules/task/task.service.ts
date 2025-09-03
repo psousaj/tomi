@@ -25,11 +25,12 @@ export class TaskService {
     return this.taskRepository.findOneBy({ id });
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return this.taskRepository.update(id, updateTaskDto);
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    await this.taskRepository.update(id, updateTaskDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return this.taskRepository.delete(id);
+  async remove(id: number) {
+    await this.taskRepository.delete(id);
   }
 }
