@@ -8,26 +8,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { DataTable } from "./TaskDataTable/data-table"
-import { columns } from "./TaskDataTable/columns"
+
+import { TaskTable } from "./TaskTable"
+import { NewTaskDialog } from "./NewTaskDialog"
 
 // dialog e tabs
 
@@ -56,18 +39,20 @@ const dataTable = [
 
 export function TaskCard() {
     return (
-        <Card className="w-full max-w-sm">
+        <Card className="w-full min-w-72 max-w-[500px]">
             <CardHeader >
-                <CardTitle>Login to your account</CardTitle>
-                {/* <CardDescription>
-                    Enter your email below to login to your account
-                </CardDescription> */}
+                <CardTitle className="capitalize">Lista de tarefas</CardTitle>
+                <CardDescription>
+                    Gerencie suas tarefas de forma eficiente
+                </CardDescription>
                 <CardAction>
-                    <Button variant="link">Sign Up</Button>
-                </CardAction>
-            </CardHeader>
+                    <NewTaskDialog>
+                        <Button variant="default">Nova Tarefa</Button>
+                    </NewTaskDialog>
+                </CardAction >
+            </CardHeader >
             <CardContent>
-                <DataTable columns={columns} data={dataTable} />
+                <TaskTable tasks={dataTable} />
             </CardContent>
             {/* <CardFooter className="flex-col gap-2">
                 <Button type="submit" className="w-full">
@@ -77,6 +62,6 @@ export function TaskCard() {
                     Login with Google
                 </Button>
             </CardFooter> */}
-        </Card>
+        </Card >
     )
 }
