@@ -24,9 +24,21 @@ export function NavigationMenuHeader() {
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                        <Link href="/docs">Docs</Link>
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid w-[200px] gap-4">
+                            <li>
+                                <NavigationMenuLink asChild>
+                                    <Link href="/docs">Web App</Link>
+                                </NavigationMenuLink>
+                            </li>
+                            <li>
+                                <NavigationMenuLink asChild>
+                                    <a href="http://localhost:3001/api/docs" target="_blank">API</a>
+                                </NavigationMenuLink>
+                            </li>
+                        </ul>
+                    </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Integrações</NavigationMenuTrigger>

@@ -1,8 +1,9 @@
 {
   "extends": "@tomi/ts-config/nestjs.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "dist",
     "composite": true
   },
   "references": [
