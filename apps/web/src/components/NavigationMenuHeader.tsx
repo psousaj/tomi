@@ -34,7 +34,7 @@ export function NavigationMenuHeader() {
                             </li>
                             <li>
                                 <NavigationMenuLink asChild>
-                                    <a href="http://localhost:3001/api/docs" target="_blank">API</a>
+                                    <a href="http://localhost:3003/api/docs" target="_blank">API</a>
                                 </NavigationMenuLink>
                             </li>
                         </ul>

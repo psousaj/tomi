@@ -4,7 +4,10 @@
 .turbo
 .eslintrc.json
 tsconfig*.json
-*tsconfig*.tsbuildinfo
+*tsconfig*
+*tsconfig.tsbuildinfo*
+*.tsbuildinfo
+
 
 # monorepo
 .pnpm-store

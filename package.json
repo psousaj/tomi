@@ -3,9 +3,10 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "pnpm dev:validation && turbo run dev",
     "dev:api": "turbo run dev --filter=@tomi/validation --filter=api",
     "dev:web": "turbo run dev --filter=web",
+    "dev:validation": "turbo run dev --filter=@tomi/validation",
     "build": "turbo run build --cache=local:r,remote:r",
     "lint": "turbo run lint"
   },
