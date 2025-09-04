@@ -9,19 +9,21 @@ export function middleware(req: NextRequest) {
     const token = req.cookies.get("fake_jwt")?.value
 
     if (pathname.startsWith(LOGIN_PATH)) {
-        return token ? NextResponse.redirect(new URL(ROOT_PATH, req.url)) : NextResponse.next()
-    }
-
-    if (pathname === ROOT_PATH) {
-        if (!token) {
-            return NextResponse.redirect(new URL(LOGIN_PATH, req.url))
+        if (token) {
+            return NextResponse.redirect(new URL(ROOT_PATH, req.url))
         }
         return NextResponse.next()
+    }
+
+    if (!token) {
+        return NextResponse.redirect(new URL(LOGIN_PATH, req.url))
     }
 
     return NextResponse.next()
 }
 
 export const config = {
-    matcher: ["/((?!_next|api|.*\\..*).*)"],
+    matcher: [
+        "/((?!_next|api|.*\\..*).*)",
+    ],
 }

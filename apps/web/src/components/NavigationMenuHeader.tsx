@@ -14,7 +14,7 @@ import { TiHome } from "react-icons/ti";
 
 export function NavigationMenuHeader() {
     return (
-        <NavigationMenu viewport={false}>
+        <NavigationMenu viewport={true}>
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
