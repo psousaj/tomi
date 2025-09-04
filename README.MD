@@ -4,6 +4,21 @@
 
 ---
 
+## 🧠 Escolhas Tecnológicas
+
+Optei por utilizar **NestJS** para o back-end e **Next.js** para o front-end por já possuir familiaridade e experiência profissional com ambas as tecnologias. Tendo trabalhado com elas em projetos anteriores, sinto-me confortável para desenvolver e manter a aplicação de forma produtiva.
+
+## 📈 Pontos de Melhoria para o Futuro
+
+- **Autenticação Robusta**: Implementar um sistema de login completo com JWT (JSON Web Tokens), incluindo refresh tokens e uma estratégia de blacklist para logout e invalidar sessões.
+- **Segurança da API**:
+    - Validar e sanitizar todos os inputs provenientes do front-end para prevenir ataques como XSS e SQL Injection.
+    - Implementar `rate limiting` para proteger a API contra ataques de negação de serviço (DoS) e força bruta.
+- **Controle de Acesso**: Antes de permitir a exclusão de uma tarefa, verificar se o usuário autenticado é de fato o proprietário da mesma.
+- **Containerização**: Utilizar Docker e Docker Compose para criar um ambiente de desenvolvimento e produção padronizado, facilitando o deploy e a escalabilidade da aplicação.
+
+---
+
 ## 🛠️ Tecnologias Principais
 
 - **Monorepo**: [Turborepo](https://turbo.build/repo) com [pnpm](https://pnpm.io)
