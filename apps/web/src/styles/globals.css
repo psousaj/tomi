@@ -120,3 +120,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Adiciona margem aos cabeçalhos dentro do conteúdo de markdown */
+@layer base {
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply mb-2 mt-4;
+  }
+}
