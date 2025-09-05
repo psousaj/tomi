@@ -7,6 +7,12 @@ const envSchema = z.object({
     REDIS_URL: z.string().url().optional(),
     JWT_SECRET: z.string().min(32).max(1024).optional(),
     LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+    CORS_ORIGINS: z
+        .string()
+        .transform((val) =>
+            val.trim() === '' ? [] : val.split(',').map((s) => s.trim())
+        )
+        .default('http://localhost:3000,http://meu-frontend.com,http://192.168.0.8:3000')
 });
 
 const webEnvSchema = z.object({
